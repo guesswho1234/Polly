@@ -1,0 +1,139 @@
+#new-paste-form,
+#open-paste-container,
+#new-paste-settings-container,
+#id-container,
+#open-paste-pw-container {
+  height: 100%;
+  width: 100%;
+}
+
+#new-paste-container.scroll {
+  height: fit-content !important;
+}
+
+.opened-paste-content,
+#paste-content {
+  background: var(--transparent);
+  color: var(--white);
+  resize: none;
+  margin: 2px;
+  padding: 2px;
+  overflow: auto;
+  scrollbar-width: none; 
+  -ms-overflow-style: none; 
+  border: 1px solid var(--white);
+}
+
+#paste-content {
+  display: block;
+  width: calc(100% - 8px);
+  height: calc(100% - 57px);
+}
+
+.opened-paste-content {
+  display: block;
+  width: calc(100% - 8px);
+  height: calc(100% - 10px);
+}
+
+#pw-value-1::placeholder,
+#pw-value-2::placeholder,
+#open-paste-id::placeholder,
+#open-paste-pw-value::placeholder,
+#paste-content::placeholder {
+  color: var(--placeholder);
+}
+
+.opened-paste-content:focus,
+#paste-content:focus {
+  outline: none;
+  border: 1px solid var(--green-light);
+  box-shadow: 0 0 4px var(--white);
+}
+
+#open-paste-id,
+#paste-id {
+  display: flex;
+  margin: auto;
+  width: 90%;
+  text-align: center;
+  background: var(--cyan-dark);
+  font-weight: bold;
+  color: var(--yellow);
+  border: none;
+}
+
+#paste-id {
+  background: var(--cyan-dark);
+}
+
+#open-paste-id  {
+  background: var(--cyan-dark);
+  background: var(--blue);
+}
+
+#open-paste-id:focus,
+#paste-id:focus  {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+.pw-value {
+  display: flex;
+  margin: auto;
+  width: 90%;
+  background: var(--red);
+  color: var(--yellow);
+  border: none;
+}
+
+.pw-value::placeholder {
+  font-weight: bold;
+}
+
+.pw-value:focus{
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+#new-paste-container .new-paste-button-container {
+  display: flex;
+  margin: auto;
+  margin-top: 10px;
+  place-content: space-around;
+  width: fit-content;
+  gap: 20px;
+}
+
+#new-paste-container .new-paste-button-container button {
+  position: unset !important;
+  left: unset !important;
+  margin: unset !important;
+  width: 10ch !important;
+}
+
+.input[type=number] {
+  -webkit-appearance: none;
+  margin: 0;
+  -moz-appearance: textfield;
+  -moz-appearance: textfield;
+  background: var(--blue);
+  color: var(--cyan-light);
+  font-weight: bold;
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+.input[type=number]:focus {
+  color: var(--white);
+}
+
+#lifetime-input-container span {
+  width: 90%;
+  display: flex;
+  margin: auto;
+  color: var(--black);
+}

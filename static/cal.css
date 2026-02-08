@@ -1,0 +1,352 @@
+#new-event-form, 
+#open-event-container,
+#new-event-settings-container,
+#id-container,
+#open-event-pw-container {
+  height: 100%;
+  width: 100%;
+}
+
+#new-event-container.scroll {
+  height: fit-content !important;
+}
+
+.opened-event-content {
+  background: var(--transparent);
+  color: var(--white);
+  border: unset;
+  resize: none;
+  margin: 2px;
+  padding: 2px;
+  overflow: auto;
+  scrollbar-width: none; 
+  -ms-overflow-style: none; 
+  border: 1px solid var(--white);
+}
+
+.opened-event-container {
+  position: relative;
+}
+
+.opened-event-content {
+  width: calc(100% - 8px);
+  height: calc(100% - 59px);
+}
+
+.opened-event-content {
+  line-height: normal;
+  font-size: 13px;
+  z-index: -1;
+  white-space: pre;
+  cursor: text;
+}
+
+.opened-event-content .description .value {
+  overflow-wrap: break-word; 
+  white-space: normal;
+}
+
+#pw-value-1::placeholder,
+#pw-value-2::placeholder,
+#open-event-id::placeholder,
+#open-event-pw-value::placeholder {
+  color: var(--placeholder);
+}
+
+.opened-event-content:focus {
+  outline: none;
+  border: 1px solid var(--green-light);
+  box-shadow: 0 0 4px var(--white);
+}
+
+#open-event-id,
+#event-id {
+  display: flex;
+  margin: auto;
+  width: 90%;
+  text-align: center;
+  background: var(--cyan-dark);
+  font-weight: bold;
+  color: var(--yellow);
+  border: none;
+}
+
+#event-id {
+  background: var(--cyan-dark);
+}
+
+#open-event-id  {
+  background: var(--cyan-dark);
+  background: var(--blue);
+}
+
+#open-event-id:focus,
+#event-id:focus  {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+.pw-value {
+  display: flex;
+  margin: auto;
+  width: 90%;
+  background: var(--red);
+  color: var(--yellow);
+  border: none;
+}
+
+.pw-value::placeholder {
+  font-weight: bold;
+}
+
+.pw-value:focus{
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+#new-event-container .new-event-button-container,
+#turbo-container .box.active.top .opened-event-container .opened-event-url-container {
+  display: flex;
+  margin: auto;
+  margin-top: 10px;
+  place-content: space-around;
+  width: fit-content;
+  gap: 20px;
+}
+
+#new-event-container .new-event-button-container button,
+#turbo-container .box.active.top .opened-event-container .opened-event-url-container .btn {
+  position: unset !important;
+  left: unset !important;
+  margin: unset !important;
+  width: 10ch !important;
+}
+
+#turbo-container .box.active.top .opened-event-container .opened-event-url-container .btn {
+  width: 16ch !important;
+  text-decoration: none;
+}
+
+.input[type=number] {
+  -webkit-appearance: none;
+  margin: 0;
+  -moz-appearance: textfield;
+  -moz-appearance: textfield;
+  background: var(--blue);
+  color: var(--cyan-light);
+  font-weight: bold;
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+.input[type=number]:focus {
+  color: var(--white);
+}
+
+#lifetime-input-container span {
+  width: 90%;
+  display: flex;
+  margin: auto;
+  color: var(--black);
+}
+
+#new-event-form .input {
+  background: var(--cyan-dark);
+  color: var(--yellow);
+  border: none;
+  font-weight: bold;
+}
+
+#new-event-form .input:focus {
+  outline: none;
+  border: none;
+  box-shadow: none;
+  font-weight: bold;
+}
+
+#new-event-form .input::placeholder {
+  color: var(--placeholder);
+}
+
+#calendar-grid-header {
+  margin: auto;
+  text-align: center;
+  width: 100%;
+}
+
+#calendar-grid-nav {
+  display: flex;
+}
+
+#calendar-grid button {
+  width: fit-content !important;
+  margin: auto !important;
+  position: unset !important;
+}
+
+#calendar-grid-prev-year {
+  left: 14px !important; 
+  right: auto !important;
+  bottom: 43px !important;
+}
+
+#calendar-grid-next-year {
+  left: auto !important;
+  right: 14px !important;
+  bottom: 43px !important;
+}
+
+#calendar-grid-content {
+  display: grid;
+  grid-template-rows: 16px repeat(7, 8px) 16px;
+  grid-auto-flow: column; 
+  gap: 2px;
+  margin: 2px;
+  place-content: center;
+}
+
+.weekday-label {
+  font-size: 11px;
+  align-self: center;
+  padding-right: 2px;
+}
+
+.iso-week-label {
+  width: 8px;
+  font-size: 8px;
+  text-align: center;
+}
+
+.iso-week-label.iso-week-even {
+  display: flex;
+  align-items: end;
+}
+
+.iso-week-label.iso-week-odd {
+  display: flex;
+  align-items: start;
+}
+
+.month-label {
+  font-size: 11px;
+  justify-self: center;
+  width: 8px;
+}
+
+.day-cell.month-even {
+  background: var(--gray-light); 
+}
+
+.day-cell.month-odd {
+  background: var(--gray-dark); 
+}
+
+.day-cell {
+  width: 8px;
+  height: 8px;
+  background: var(--white); 
+  cursor: pointer;
+}
+
+.day-cell:hover {
+  outline: 2px solid var(--yellow); 
+  outline: 2px solid var(--yellow);
+  background: var(--green-dark) !important;
+}
+
+.day-cell.in-range {
+  background: var(--purple);
+}
+
+.day-cell.selected {
+  background: var(--yellow); 
+}
+
+#event-content {
+  width: calc(100% - 8px);
+  height: calc(100% - 57px);
+  background: var(--transparent);
+  margin: 2px;
+  padding: 2px;
+  color: var(--cyan-dark);
+  border: 1px solid var(--white);
+}
+
+#event-title,
+#event-location,
+#event-description {
+  width: inherit;
+}
+
+#event-description {
+  overflow: auto;
+  scrollbar-width: none; 
+  -ms-overflow-style: none; 
+  resize: none;
+}
+
+.opened-event-content .key {
+  color: var(--yellow);
+  font-weight: bold;
+  display: inline-block;
+  width: 12ch;
+}
+
+.opened-event-content .value {
+  margin-left: 1ch;
+}
+
+.opened-event-content .day,
+.opened-event-content .year,
+.opened-event-content .time,
+.opened-event-content .week,
+.opened-event-content .days-value,
+.opened-event-content .hours-value,
+.opened-event-content .minutes-value {
+  color: var(--green-light);
+}
+
+.opened-event-content .description .value,
+.opened-event-content .location .value {
+  color: var(--gray-light);
+}
+
+.opened-event-content .title .value {
+  color: var(--cyan-light);
+}
+
+#new-event-form .event-input-item input {
+  width: 100%;
+}
+
+#event-content .event-input-item,
+#event-date-range, 
+#event-time-range {
+  display: flex;
+  width: calc(100% - 10px);
+  margin: auto;
+  gap: 5px;
+}
+
+#event-date-range .event-input-item, 
+#event-time-range .event-input-item {
+  display: block;
+  width: fit-content;
+  margin: 0;
+}
+
+#event-from-date,
+#event-to-date,
+#event-start-time,
+#event-end-time {
+  width: fit-content !important; 
+}
+
+#event-description {
+  display: block;
+  width: calc(100% - 14px);
+  margin: auto;
+}

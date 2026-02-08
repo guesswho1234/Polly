@@ -1,0 +1,39 @@
+/* === "Services" === */
+#services .turbo-content {
+  margin: 10px;
+}
+
+#services .item-element-url {
+  display: block;
+  padding: 2px 6px;
+}
+
+#services .prompt {
+  margin-top: 1em;
+}
+
+#services .prompt-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 1em;
+  background-color: var(--yellow);
+  animation: blink 0.5s steps(1) infinite;
+  vertical-align: bottom;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+#services .services-container {
+  color: var(--black);
+  background: var(--gray-light);
+  width: fit-content;
+  padding: 10px;
+}
+
+#services .services-list {
+  border: 2px solid var(--black);
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
