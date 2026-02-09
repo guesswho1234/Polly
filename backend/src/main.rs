@@ -47,7 +47,16 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // ---- Build app ----
     let app = app(state.clone());
-    let addr = SocketAddr::from(([127, 0, 0, 1], 3000));
+
+    let bind_addr = std::env::var("BIND_ADDR").unwrap_or_else(|_| "127.0.0.1".into());
+    let port: u16 = std::env::var("PORT")
+        .unwrap_or_else(|_| "3000".into())
+        .parse()
+        .expect("Invalid PORT");
+
+    let addr: SocketAddr = format!("{}:{}", bind_addr, port).parse()?;
+
+    // let addr = SocketAddr::from(([127, 0, 0, 1], 3000));
     let listener = TcpListener::bind(addr).await?;
 
     info!("Polly backend running at http://{}", addr);
