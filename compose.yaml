@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  polly:
+    container_name: polly
+    build:
+      dockerfile: dockerfile
+      args:
+        UID: 1001
+        GID: 1001
+	  context: https://github.com/guesswho1234/Polly.git#master
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    user: pollyuser
+	restart: unless-stopped
+	ports:
+      - "32780:3000"	  
+    environment:
+      STORAGE_BACKEND: sqlite
+      SQLITE_PATH: /app/data/polly.db
+      BIND_ADDR: 0.0.0.0
+      PORT: 3000
+    volumes:
+      - type: bind
+        source: ./data
+        target: /app/data
+		
