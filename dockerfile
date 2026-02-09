@@ -31,7 +31,7 @@ COPY --from=builder /src/backend/target/release/polly-backend /usr/local/bin/pol
 COPY --chown=pollyuser:pollyuser static ./static
 
 ENV STORAGE_BACKEND=sqlite \
-    SQLITE_PATH=/app/data/polly.db \
+    SQLITE_PATH=/app/data/polly.sqlite \
     BIND_ADDR=0.0.0.0 \
     PORT=3000
 
