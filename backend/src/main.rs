@@ -53,10 +53,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .unwrap_or_else(|_| "3000".into())
         .parse()
         .expect("Invalid PORT");
-
     let addr: SocketAddr = format!("{}:{}", bind_addr, port).parse()?;
-
-    // let addr = SocketAddr::from(([127, 0, 0, 1], 3000));
     let listener = TcpListener::bind(addr).await?;
 
     info!("Polly backend running at http://{}", addr);
