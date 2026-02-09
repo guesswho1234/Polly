@@ -65,7 +65,7 @@ impl AppState {
         let ban_store: Option<Arc<dyn BanStore>>;
 
         if use_sqlite {
-            let path = sqlite_path.unwrap_or("data.db");
+            let path = sqlite_path.unwrap_or("polly.sqlite");
 
             let storage = Arc::new(SqliteStorage::new(path)?);
 
