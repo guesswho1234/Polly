@@ -19,7 +19,7 @@ services:
       - "32780:3000"	  
     environment:
       STORAGE_BACKEND: sqlite
-      SQLITE_PATH: /app/data/polly.db
+      SQLITE_PATH: /app/data/polly.sqlite
       BIND_ADDR: 0.0.0.0
       PORT: 3000
     volumes:
