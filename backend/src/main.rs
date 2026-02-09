@@ -29,7 +29,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let state = match storage_backend.as_str() {
         "sqlite" => {
             let sqlite_path =
-                std::env::var("SQLITE_PATH").unwrap_or_else(|_| "polly.db".into());
+                std::env::var("SQLITE_PATH").unwrap_or_else(|_| "polly.sqlite".into());
 
             info!("Using SQLite storage at {}", sqlite_path);
 
