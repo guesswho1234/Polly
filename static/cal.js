@@ -531,7 +531,7 @@ function openEventBox(eventId, content, ics) {
     `<div class="opened-event-url-container">` + 
       `<a class="download-ics btn box-shadow item-element-lnk-purple" href="#" download="event.ics">` +
         `<span class="highlightYellow">D</span>ownload ICS` +
-    `</a>` + 
+      `</a>` + 
     `</div>` + 
   `</div>`);  
   openedIdBoxHtml.querySelector('.opened-event-container').style.height = (defaultBoxHeight * u_height - margin_scroll_v * 2) + "px";
@@ -965,26 +965,23 @@ function applySettings() {
 /* COPY ID ============================= */
 /* ===================================== */
 function copyId() {
-  if (!document.getElementById('new-event-id').classList.contains('active')){
+  if (document.querySelector('#new-event-id.active.top') === null){
     return;
   }
 
   const eventId = document.getElementById('event-id');
-  const originalValue = eventId.value;
-  const placeholder = "Copied";
 
-  if (originalValue === placeholder){
-    return;
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(eventId.value);
+  } else {
+    console.error("Clipboard API not supported");
   }
 
-  navigator.clipboard.writeText(originalValue);
-
-  eventId.value = placeholder;
-  eventId.blur();
+  eventId.classList.add('content-copied');
 
   setTimeout(() => {
-    eventId.value = originalValue;
-  }, 1000);
+    eventId.classList.remove('content-copied');
+  }, 500);
 }
 
 document.getElementById('copy-event-id').addEventListener('click', () => {

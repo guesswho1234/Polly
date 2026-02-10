@@ -188,6 +188,9 @@ function openPasteBox(pasteId, content) {
   const openedIdBoxHtml = fragmentFromHTML(`` +
   `<div class="opened-paste-container">` +
     `<textarea class="input opened-paste-content" readonly></textarea>` +
+    `<div class="opened-paste-button-container">` + 
+      `<button id="copy-opened-paste-content" class="box-shadow item-element-lnk-purple"><span class="highlightYellow">C</span>opy</button>` +
+    `</div>` + 
   `</div>`);
   openedIdBoxHtml.querySelector('.opened-paste-container').style.height = (defaultBoxHeight * u_height - margin_scroll_v * 2) + "px";
   openedIdBoxHtml.querySelector('.opened-paste-container').style.width = "calc(" + defaultBoxWidth + "ch - " + (margin_scroll_h * 2) + "px)";
@@ -212,7 +215,11 @@ function openPasteBox(pasteId, content) {
 	  true,
 	  true,
     'textarea.input'
-  ); 
+  );
+
+  document.getElementById('copy-opened-paste-content').addEventListener('click', () => {
+    copyContent();
+  }); 
 }
 
 async function submitOpenIdForm(rawInput = '', password = '') {
@@ -460,35 +467,53 @@ function applySettings() {
 /* COPY ID ============================= */
 /* ===================================== */
 function copyId() {
-  if (!document.getElementById('new-paste-id').classList.contains('active')){
+  if (document.querySelector('#new-paste-id.active.top') === null){
     return;
   }
 
   const pasteId = document.getElementById('paste-id');
-  const originalValue = pasteId.value;
-  const placeholder = "Copied";
-
-  if (originalValue === placeholder){
-    return;
-  }
 
   if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(pasteId.value);
   } else {
     console.error("Clipboard API not supported");
-  }
+  }  
 
-  pasteId.value = placeholder;
-  pasteId.blur();
+  pasteId.classList.add('content-copied');
 
   setTimeout(() => {
-    pasteId.value = originalValue;
-  }, 1000);
+    pasteId.classList.remove('content-copied');
+  }, 500);
 }
 
 document.getElementById('copy-paste-id').addEventListener('click', () => {
   copyId();
 });
+
+/* ===================================== */
+/* COPY CONTENT ======================== */
+/* ===================================== */
+function copyContent() {
+  if (document.querySelector('.box.active.top .opened-paste-content') === null){
+    return;
+  }
+
+  const content = document.querySelector('.box.active.top .opened-paste-content');
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(content.value);
+  } else {
+    console.error("Clipboard API not supported");
+  }
+
+  content.classList.add('content-copied');
+
+  setTimeout(() => {
+    content.classList.remove('content-copied');
+  }, 1000);
+}
+
+
 
 /* ===================================== */
 /* BUTTONS ============================= */
@@ -530,6 +555,7 @@ function handleBinKey(e) {
   const settings = document.getElementById('new-paste-settings');
   const openPaste = document.getElementById('open-paste');
   const openPastePw = document.getElementById('open-paste-pw');
+  const openedPaste = document.querySelector('.box.active.top .opened-paste-container');
   const newPaste = document.getElementById('new-paste');
   const id = document.getElementById('new-paste-id');
 
@@ -538,6 +564,7 @@ function handleBinKey(e) {
   const cond_idActive = id.classList.contains('active') && id.classList.contains('top');
   const cond_settingsActive = settings.classList.contains('active') && settings.classList.contains('top');
   const cond_idPwActive = openPastePw.classList.contains('active') && openPastePw.classList.contains('top');
+  const cond_openedPaste = openedPaste;
 
   // Open settings
   if (cond_newPasteActive && key == 'T') {
@@ -567,6 +594,11 @@ function handleBinKey(e) {
   // Copy id
   if (cond_idActive && key == 'C') {
     copyId();
+  }    
+
+  // Copy content
+  if (cond_openedPaste && key == 'C') {
+    copyContent();
   }
 }
   

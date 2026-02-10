@@ -33,7 +33,12 @@
 .opened-paste-content {
   display: block;
   width: calc(100% - 8px);
-  height: calc(100% - 10px);
+  height: calc(100% - 59px);
+}
+
+#paste-id.content-copied,
+.opened-paste-content.content-copied {
+  background: var(--purple);
 }
 
 #pw-value-1::placeholder,
@@ -98,7 +103,8 @@
   box-shadow: none;
 }
 
-#new-paste-container .new-paste-button-container {
+#new-paste-container .new-paste-button-container,
+.opened-paste-container .opened-paste-button-container {
   display: flex;
   margin: auto;
   margin-top: 10px;
@@ -107,7 +113,8 @@
   gap: 20px;
 }
 
-#new-paste-container .new-paste-button-container button {
+#new-paste-container .new-paste-button-container button,
+.opened-paste-container .opened-paste-button-container button {
   position: unset !important;
   left: unset !important;
   margin: unset !important;

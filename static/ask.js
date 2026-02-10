@@ -1219,26 +1219,23 @@ function applySettings() {
 /* COPY ID ============================= */
 /* ===================================== */
 function copyId() {
-  if (!document.getElementById('new-survey-id').classList.contains('active')){
+  if (document.querySelector('#new-survey-id.active.top') === null){
     return;
   }
 
   const surveyId = document.getElementById('survey-id');
-  const originalValue = surveyId.value;
-  const placeholder = "Copied";
 
-  if (originalValue === placeholder){
-    return;
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(surveyId.value);
+  } else {
+    console.error("Clipboard API not supported");
   }
 
-  navigator.clipboard.writeText(originalValue);
-
-  surveyId.value = placeholder;
-  surveyId.blur();
+  surveyId.classList.add('content-copied');
 
   setTimeout(() => {
-    surveyId.value = originalValue;
-  }, 1000);
+    surveyId.classList.remove('content-copied');
+  }, 500);
 }
 
 document.getElementById('copy-survey-id').addEventListener('click', () => {

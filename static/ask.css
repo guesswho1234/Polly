@@ -47,6 +47,10 @@
   height: calc(100% - 10px);
 }
 
+#survey-id.content-copied {
+  background: var(--purple);
+}
+
 #pw-value-1::placeholder,
 #pw-value-2::placeholder,
 #open-survey-id::placeholder,

@@ -46,6 +46,10 @@
   white-space: normal;
 }
 
+#event-id.content-copied {
+  background: var(--purple);
+}
+
 #pw-value-1::placeholder,
 #pw-value-2::placeholder,
 #open-event-id::placeholder,
