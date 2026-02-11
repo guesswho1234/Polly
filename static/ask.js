@@ -1,4 +1,17 @@
 /* ===================================== */
+/* AUTO LOAD PASTE FROM URL ============ */
+/* ===================================== */
+window.addEventListener('DOMContentLoaded', () => {
+  const path = window.location.pathname;
+  const segments = path.split('/').filter(Boolean);
+
+  if (segments[0] === 'ask' && segments[1]) {
+    const id = segments[1];
+    submitOpenIdForm(id);
+  }
+});
+
+/* ===================================== */
 /* BOX CONTENT ========================= */
 /* ===================================== */
 const headerOptions = [
@@ -605,7 +618,7 @@ async function submitOpenIdForm(rawInput = '', password = '') {
   try {
     const headers = password ? { 'Authorization': 'Basic ' + btoa(':' + password) } : {};
 
-    const response = await fetch(`/ask/${encodeURIComponent(id)}`, {
+    const response = await fetch(`/api/ask/${encodeURIComponent(id)}`, {
       method: 'GET',
       headers,
     });
@@ -688,7 +701,7 @@ async function submitVoteIdForm(id, voteData, password = '') {
       headers['Authorization'] = 'Basic ' + btoa(':' + password);
     }
 
-    const response = await fetchWithPow(`/ask/${encodeURIComponent(id)}/vote`, {
+    const response = await fetchWithPow(`/api/ask/${encodeURIComponent(id)}/vote`, {
       method: 'POST',
       headers,
       body: JSON.stringify(payload),
@@ -768,7 +781,7 @@ async function submitNewSurveyForm() {
   };
 
   try {
-    const response = await fetchWithPow('/ask', {
+    const response = await fetchWithPow('/api/ask', {
       method: 'POST',
       body: JSON.stringify(payload),
       headers: { 'Content-Type': 'application/json' },
