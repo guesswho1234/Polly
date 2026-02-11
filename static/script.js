@@ -408,7 +408,7 @@ function createTurboBox(id, title, height, width, show = false, focusInput = fal
   box.style.height = `${baseHeight * u_height}px`;
   
   // First line
-  let boxInnerHtmlContent = `<div class="turbo-border first-line">╔═[<div class="b-exit item-element-lnk-brown">▪</div>]══<span class="box-top-fill-half-one"></span>═ <span class="box-title"></span> ═<span class="box-top-fill-half-two"></span><span class="box-index"></span>═[<div class="b-background item-element-lnk-brown">↕</div>]═╗</div>`;
+  let boxInnerHtmlContent = `<div class="turbo-border first-line">╔═[<div class="b-exit item-element-lnk-brown">▪</div>]══<span class="box-top-fill-half-one"></span>═ <span class="box-title item-element-lnk-brown"></span> ═<span class="box-top-fill-half-two"></span><span class="box-index"></span>═[<div class="b-background item-element-lnk-brown">↕</div>]═╗</div>`;
 
   // Middle lines
   boxInnerHtmlContent += `<div class="turbo-border middle-line">║<div class="box-middle-fill"></div><div class="block-bg b-v-scroll-up item-element-lnk-red">▲</div></div><div class="turbo-border middle-line">║<div class="box-middle-fill"></div><div class="block-bg b-v-scroll item-element-lnk-brown">▪</div><div class="block-bg2 item-element-lnk-brown">▒</div></div><div class="turbo-border middle-line">║<div class="box-middle-fill"></div><div class="block-bg2 item-element-lnk-brown">▒</div></div>`;
