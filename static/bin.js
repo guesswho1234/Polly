@@ -1,17 +1,4 @@
 /* ===================================== */
-/* AUTO LOAD PASTE FROM URL ============ */
-/* ===================================== */
-window.addEventListener('DOMContentLoaded', () => {
-  const path = window.location.pathname;
-  const segments = path.split('/').filter(Boolean);
-
-  if (segments[0] === 'bin' && segments[1]) {
-    const id = segments[1];
-    submitOpenIdForm(id);
-  }
-});
-
-/* ===================================== */
 /* BOX CONTENT ========================= */
 /* ===================================== */
 const headerOptions = [
@@ -285,6 +272,10 @@ async function submitOpenIdForm(rawInput = '', password = '') {
   } finally {
     clearForm(openPasteForm);
   }
+}
+
+async function autoLoadPaste(id) {
+  await submitOpenIdForm(id);
 }
 
 async function submitNewPasteForm() {
@@ -614,4 +605,17 @@ function handleBinKey(e) {
     copyContent();
   }
 }
-  
+
+/* ===================================== */
+/* AUTO LOAD FROM URL ================== */
+/* ===================================== */
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    const path = window.location.pathname;
+    const segments = path.split('/').filter(Boolean);
+
+    if (segments[0] === 'bin' && segments[1]) {
+      autoLoadPaste(segments[1]);
+    }
+  }, 50);
+});
