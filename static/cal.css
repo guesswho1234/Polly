@@ -131,6 +131,7 @@
   width: 16ch !important;
   text-decoration: none;
   left: calc(50% - 8ch) !important;
+  margin: unset !important;
 }
 
 .input[type=number] {
