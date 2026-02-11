@@ -14,7 +14,8 @@ use argon2::{
 }; 
 use rand_core::OsRng;
 use uuid::Uuid;
-use std::time::{SystemTime, Duration, fs};
+use std::fs;
+use std::time::{SystemTime, Duration};
 use std::collections::HashMap;
 
 use crate::state::AppState;
