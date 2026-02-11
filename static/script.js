@@ -615,7 +615,7 @@ document.addEventListener('click', (e) => {
   // 'id' click
   if (e.target.classList.contains('box-title') && b.classList.contains('active') && b.classList.contains('top') && b.id == e.target.textContent) {
     if (navigator.clipboard && navigator.clipboard.writeText) {
-	  const fullUrl = `${window.location.pathname}/${e.target.textContent}`;
+	  const fullUrl = `${window.location.href}/${e.target.textContent}`;
 		
 	  navigator.clipboard.writeText(fullUrl);
     } else {
