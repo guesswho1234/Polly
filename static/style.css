@@ -335,7 +335,7 @@ body {
   filter: opacity(0.2);
 }
 
-#turbo-container .turbo.box.active.top .box-title.content-copied {
+#turbo-container .turbo-box.active.top .box-title.content-copied {
   background: var(--purple);
 }
 
