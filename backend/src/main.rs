@@ -86,23 +86,26 @@ fn app(state: AppState) -> Router {
 Router::new()
     // --- Bin routes ---
     .route("/bin", axum::routing::get(bin::bin_html)) 
-    .route("/bin", axum::routing::post(bin::create_paste)
+    .route("/bin/:id", axum::routing::get(bin::bin_html))
+    .route("/api/bin", axum::routing::post(bin::create_paste)
             .layer(middleware::from_fn_with_state(state.clone(), pow_challenge)))
-    .route("/bin/:id", axum::routing::get(bin::get_paste)) 
+    .route("/api/bin/:id", axum::routing::get(bin::get_paste))   
 
     // --- Cal routes ---
     .route("/cal", axum::routing::get(cal::cal_html))
-    .route("/cal", axum::routing::post(cal::create_event)
+    .route("/cal/:id", axum::routing::get(cal::cal_html))
+    .route("/api/cal", axum::routing::post(cal::create_event)
             .layer(middleware::from_fn_with_state(state.clone(), pow_challenge)))
-    .route("/cal/:id", axum::routing::get(cal::get_event))
-
+    .route("/api/cal/:id", axum::routing::get(cal::get_event))
+    
     // --- Ask routes ---
     .route("/ask", axum::routing::get(ask::ask_html))
-    .route("/ask", axum::routing::post(ask::create_survey)
+    .route("/ask/:id", axum::routing::get(ask::ask_html))
+    .route("/api/ask", axum::routing::post(ask::create_survey)
             .layer(middleware::from_fn_with_state(state.clone(), pow_challenge)))
-    .route("/ask/:id/vote", axum::routing::post(ask::vote_survey)
-            .layer(middleware::from_fn_with_state(state.clone(), pow_challenge)))
-    .route("/ask/:id", axum::routing::get(ask::get_survey))
+    .route("/api/ask/:id", axum::routing::get(ask::get_survey)) 
+    .route("/api/ask/:id/vote", axum::routing::post(ask::vote_survey)
+            .layer(middleware::from_fn_with_state(state.clone(), pow_challenge)))  
 
     // --- Static files ---
     .nest_service("/", static_files)
