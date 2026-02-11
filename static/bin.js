@@ -608,16 +608,11 @@ function handleBinKey(e) {
 /* AUTO LOAD FROM URL ================== */
 /* ===================================== */
 window.addEventListener('load', () => {
-  console.log("FULL PATH:", window.location.pathname);
-	
   setTimeout(() => {
     const path = window.location.pathname;
     const segments = path.split('/').filter(Boolean);
 
-	console.log("SEGMENTS:", segments);
-
     if (segments[0] === 'bin' && segments[1]) {
-	  console.log(segments[1]);
       autoLoadPaste(segments[1]);
     }
   }, 50);
