@@ -86,21 +86,21 @@ fn app(state: AppState) -> Router {
 Router::new()
     // --- Bin routes ---
     .route("/bin", axum::routing::get(bin::bin_html)) 
-    .route("/bin/:id", axum::routing::get(bin::bin_html))
+    .route("/bin/:id", axum::routing::get(bin::serve_bin_html))
     .route("/api/bin", axum::routing::post(bin::create_paste)
             .layer(middleware::from_fn_with_state(state.clone(), pow_challenge)))
     .route("/api/bin/:id", axum::routing::get(bin::get_paste))   
 
     // --- Cal routes ---
     .route("/cal", axum::routing::get(cal::cal_html))
-    .route("/cal/:id", axum::routing::get(cal::cal_html))
+    .route("/cal/:id", axum::routing::get(cal::serve_cal_html))
     .route("/api/cal", axum::routing::post(cal::create_event)
             .layer(middleware::from_fn_with_state(state.clone(), pow_challenge)))
     .route("/api/cal/:id", axum::routing::get(cal::get_event))
     
     // --- Ask routes ---
     .route("/ask", axum::routing::get(ask::ask_html))
-    .route("/ask/:id", axum::routing::get(ask::ask_html))
+    .route("/ask/:id", axum::routing::get(ask::serve_ask_html))
     .route("/api/ask", axum::routing::post(ask::create_survey)
             .layer(middleware::from_fn_with_state(state.clone(), pow_challenge)))
     .route("/api/ask/:id", axum::routing::get(ask::get_survey)) 
