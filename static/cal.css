@@ -111,7 +111,7 @@
 }
 
 #new-event-container .new-event-button-container,
-#turbo-container .box.active.top .opened-event-container .opened-event-url-container {
+#turbo-container .opened-event-container .opened-event-url-container {
   display: flex;
   margin: auto;
   margin-top: 10px;
@@ -120,17 +120,17 @@
   gap: 20px;
 }
 
-#new-event-container .new-event-button-container button,
-#turbo-container .box.active.top .opened-event-container .opened-event-url-container .btn {
+#new-event-container .new-event-button-container button {
   position: unset !important;
   left: unset !important;
   margin: unset !important;
   width: 10ch !important;
 }
 
-#turbo-container .box.active.top .opened-event-container .opened-event-url-container .btn {
+#turbo-container .opened-event-container .opened-event-url-container .btn {
   width: 16ch !important;
   text-decoration: none;
+  left: calc(50% - 8ch) !important;
 }
 
 .input[type=number] {
