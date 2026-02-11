@@ -1,7 +1,7 @@
 use axum::{
     http::StatusCode,
     extract::{Path, State},
-    response::{Redirect, IntoResponse, Response},
+    response::{Redirect, IntoResponse, Response, Html},
     Json
 };
 use axum_extra::TypedHeader; 
@@ -14,7 +14,7 @@ use argon2::{
 }; 
 use rand_core::OsRng;
 use uuid::Uuid;
-use std::time::{SystemTime, Duration};
+use std::time::{SystemTime, Duration, fs};
 use std::collections::HashMap;
 
 use crate::state::AppState;
@@ -227,6 +227,12 @@ pub enum SurveyType {
 // Redirect /ask to /ask.html
 pub async fn ask_html() -> impl IntoResponse {
     Redirect::to("/ask.html")
+}
+
+pub async fn serve_ask_html() -> impl IntoResponse {
+    let html = fs::read_to_string("static/ask.html")
+        .expect("ask.html not found");
+    Html(html)
 }
 
 // Create new survey 
