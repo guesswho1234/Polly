@@ -246,7 +246,7 @@ span.opened-survey-choice-container {
 
 span.opened-survey-choice-stats {
   display: flex;
-  color: var(--purple);
+  color: var(--gray-light);
   padding-right: 10px;
 }
 
@@ -259,7 +259,7 @@ span.opened-survey-choice-stats > span {
 span.opened-survey-choice-stats .bar-chart .bar-chart-bar span {
   height: calc(100% - 4px);
   display: block;
-  background: var(--purple);
+  background: var(--gray-light);
   margin-top: 2px;
   margin-bottom: 2px;
 }
@@ -360,7 +360,7 @@ span.opened-survey-choice-stats .bar-chart .bar-chart-bar span {
 }
 
 .opened-survey-matrix-choice-table .opened-survey-choice-stats {
-  color: var(--purple);
+  color: var(--gray-light);
 
 }
 .opened-survey-choice-stats .highestScore,
