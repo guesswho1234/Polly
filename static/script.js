@@ -276,7 +276,7 @@ function addHeaderBar(title, options, home = true){
     `<div class="title-bar">` +
       `<div>` +
         `<a href="/">` +
-          `<img src="logo.svg" alt="Polly Logo">` +
+          `<img src="/logo.svg" alt="Polly Logo">` +
         `</a>` +
         `<span class="header-title"></span>` +
       `</div>` +
