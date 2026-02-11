@@ -1,4 +1,17 @@
 /* ===================================== */
+/* AUTO LOAD PASTE FROM URL ============ */
+/* ===================================== */
+window.addEventListener('DOMContentLoaded', () => {
+  const path = window.location.pathname;
+  const segments = path.split('/').filter(Boolean);
+
+  if (segments[0] === 'cal' && segments[1]) {
+    const id = segments[1];
+    submitOpenIdForm(id);
+  }
+});
+
+/* ===================================== */
 /* BOX CONTENT ========================= */
 /* ===================================== */
 const headerOptions = [
@@ -659,7 +672,7 @@ async function submitOpenIdForm(rawInput = '', password = '') {
   try {
     const headers = password ? { 'Authorization': 'Basic ' + btoa(':' + password) } : {};
 
-    const response = await fetch(`/cal/${encodeURIComponent(id)}`, {
+    const response = await fetch(`/api/cal/${encodeURIComponent(id)}`, {
       method: 'GET',
       headers,
     });
@@ -765,7 +778,7 @@ async function submitNewEventForm() {
   };
 	
   try {
-    const response = await fetchWithPow('/cal', {
+    const response = await fetchWithPow('/api/cal', {
       method: 'POST',
       body: JSON.stringify(payload),
       headers: { 'Content-Type': 'application/json' },
