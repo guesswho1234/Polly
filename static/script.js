@@ -615,7 +615,12 @@ document.addEventListener('click', (e) => {
   // 'id' click
   if (e.target.classList.contains('box-title') && b.classList.contains('active') && b.classList.contains('top') && b.id == e.target.textContent) {
     if (navigator.clipboard && navigator.clipboard.writeText) {
-	  const fullUrl = `${window.location.href.replace(".html", "")}/${e.target.textContent}`;
+	  const url = window.location.href;
+	  const services = ["/ask", "/bin", "/cal"];
+	  let servicesPath = services.find(service => url.includes(service)) || "";
+	  let trimmedUrl = servicesPath ? url.split(servicesPath)[0] + servicesPath + "/" : url;
+	
+	const fullUrl = `${trimmedUrl}${e.target.textContent}`;
 		
 	  navigator.clipboard.writeText(fullUrl);
     } else {
