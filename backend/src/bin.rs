@@ -1,7 +1,7 @@
 use axum::{
     http::StatusCode,
     extract::{Path, State},
-    response::{Redirect, IntoResponse, Response},
+    response::{Redirect, IntoResponse, Response, Html},
     Json
 };
 use axum_extra::TypedHeader; 
@@ -14,7 +14,7 @@ use argon2::{
 }; 
 use rand_core::OsRng;
 use uuid::Uuid;
-use std::time::{SystemTime, Duration};
+use std::time::{SystemTime, Duration, fs};
 
 use crate::state::AppState;
 
@@ -185,6 +185,12 @@ fn is_expired(paste: &Paste) -> bool {
 // Redirect /bin to /bin.html
 pub async fn bin_html() -> impl IntoResponse {
     Redirect::to("/bin.html")
+}
+
+pub async fn serve_bin_html() -> impl IntoResponse {
+    let html = fs::read_to_string("static/bin.html")
+        .expect("bin.html not found");
+    Html(html)
 }
 
 // Create new paste 
