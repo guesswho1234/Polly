@@ -1,17 +1,4 @@
 /* ===================================== */
-/* AUTO LOAD PASTE FROM URL ============ */
-/* ===================================== */
-window.addEventListener('DOMContentLoaded', () => {
-  const path = window.location.pathname;
-  const segments = path.split('/').filter(Boolean);
-
-  if (segments[0] === 'cal' && segments[1]) {
-    const id = segments[1];
-    submitOpenIdForm(id);
-  }
-});
-
-/* ===================================== */
 /* BOX CONTENT ========================= */
 /* ===================================== */
 const headerOptions = [
@@ -711,6 +698,10 @@ async function submitOpenIdForm(rawInput = '', password = '') {
   }
 }
 
+async function autoLoadPaste(id) {
+  await submitOpenIdForm(id);
+}
+
 async function submitNewEventForm() {
   const submitButton = newEventForm.querySelector('button[type="submit"]');
   submitButton.disabled = true;
@@ -1097,3 +1088,17 @@ function handleCalKey(e) {
     copyId();
   }
 }
+
+/* ===================================== */
+/* AUTO LOAD FROM URL ================== */
+/* ===================================== */
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    const path = window.location.pathname;
+    const segments = path.split('/').filter(Boolean);
+
+    if (segments[0] === 'cal' && segments[1]) {
+      autoLoadPaste(segments[1]);
+    }
+  }, 50);
+});
