@@ -1,4 +1,17 @@
 /* ===================================== */
+/* AUTO LOAD PASTE FROM URL ============ */
+/* ===================================== */
+window.addEventListener('DOMContentLoaded', () => {
+  const path = window.location.pathname;
+  const segments = path.split('/').filter(Boolean);
+
+  if (segments[0] === 'bin' && segments[1]) {
+    const id = segments[1];
+    submitOpenIdForm(id);
+  }
+});
+
+/* ===================================== */
 /* BOX CONTENT ========================= */
 /* ===================================== */
 const headerOptions = [
@@ -235,7 +248,7 @@ async function submitOpenIdForm(rawInput = '', password = '') {
   try {
     const headers = password ? { 'Authorization': 'Basic ' + btoa(':' + password) } : {};
 
-    const response = await fetch(`/bin/${encodeURIComponent(id)}`, {
+    const response = await fetch(`/api/bin/${encodeURIComponent(id)}`, {
       method: 'GET',
       headers,
     });
@@ -302,7 +315,7 @@ async function submitNewPasteForm() {
   };
 
   try {
-    const response = await fetchWithPow('/bin', {
+    const response = await fetchWithPow('/api/bin', {
       method: 'POST',
       body: JSON.stringify(payload),
       headers: { 'Content-Type': 'application/json' },
