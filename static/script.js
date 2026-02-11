@@ -611,6 +611,24 @@ document.addEventListener('click', (e) => {
     closeBox(b);
     return;
   }
+
+  // 'id' click
+  if (e.target.classList.contains('box-title') && b.classList.contains('active') && !b.classList.contains('top') && b.id == e.target.textContent) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+	  const fullUrl = `${window.location.pathname}/${e.target.textContent}`;
+		
+	  navigator.clipboard.writeText(fullUrl);
+    } else {
+	  console.error("Clipboard API not supported");
+    }
+	  
+    e.target.classList.add('content-copied');
+
+    setTimeout(() => {
+	  e.target.classList.remove('content-copied');
+    }, 1000);
+    return;
+  }
 });
 
 // 'scroll'  
