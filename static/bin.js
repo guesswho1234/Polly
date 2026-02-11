@@ -615,6 +615,7 @@ window.addEventListener('load', () => {
     const segments = path.split('/').filter(Boolean);
 
     if (segments[0] === 'bin' && segments[1]) {
+	  console.log(segments[1]);
       autoLoadPaste(segments[1]);
     }
   }, 50);
