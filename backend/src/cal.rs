@@ -1,7 +1,7 @@
 use axum::{
     http::StatusCode,
     extract::{Path, State},
-    response::{Redirect, IntoResponse, Response},
+    response::{Redirect, IntoResponse, Response, Html},
     Json
 };
 use axum_extra::TypedHeader; 
@@ -14,7 +14,7 @@ use argon2::{
 }; 
 use rand_core::OsRng;
 use uuid::Uuid;
-use std::time::{SystemTime, Duration};
+use std::time::{SystemTime, Duration, fs};
 use chrono::{NaiveDate, NaiveTime, TimeZone, DateTime, Utc};
 use chrono_tz::Tz;
 
@@ -255,6 +255,12 @@ fn is_expired(event: &Event) -> bool {
 // Redirect /cal to /cal.html
 pub async fn cal_html() -> impl IntoResponse {
     Redirect::to("/cal.html")
+}
+
+pub async fn serve_cal_html() -> impl IntoResponse {
+    let html = fs::read_to_string("static/cal.html")
+        .expect("cal.html not found");
+    Html(html)
 }
 
 // Create new event 
