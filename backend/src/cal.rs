@@ -41,7 +41,7 @@ pub struct Event {
     pub password_hash: Option<String>,
     pub expiry: u32,
     pub uses: u32,
-    pub created_system: SystemTime,
+    pub created_at: SystemTime,
     pub created_utc: DateTime<Utc>,
 }
 
@@ -242,7 +242,7 @@ fn protected_response(message: &str) -> EventResponse {
 }
 
 fn is_expired(event: &Event) -> bool {
-    if let Ok(elapsed) = event.created_system.elapsed() {
+    if let Ok(elapsed) = event.created_at.elapsed() {
         elapsed > Duration::from_secs(event.expiry as u64 * 3600)
     } else {
         true // treat weird timestamps as expired
@@ -388,7 +388,7 @@ pub async fn create_event(
         password_hash,
         expiry: new_event.expiry,
         uses: new_event.uses,
-        created_system: SystemTime::now(),
+        created_at: SystemTime::now(),
         created_utc: Utc::now(),
     };
 
