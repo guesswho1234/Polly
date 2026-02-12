@@ -70,7 +70,7 @@ const newEventHtml = fragmentFromHTML(`` +
         `<select id="event-timezone" name="timezone" class="input"></select>` + 
       `</span>` + 
       `<br/>` + 
-      `<textarea id="event-description" name="description" class="input" maxlength="4096" rows="4" placeholder="Description (optional)"></textarea>` + 
+      `<textarea id="event-description" name="description" class="input" maxlength="4096" rows="3" placeholder="Description (optional)"></textarea>` + 
     `</div>` + 
     `<div class="new-event-button-container">` + 
       `<button id="open-new-event-settings" class="box-shadow item-element-lnk-purple" type="button">Se<span class="highlightYellow">t</span>tings</button>` + 
