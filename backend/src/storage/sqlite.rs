@@ -36,7 +36,7 @@ impl SqliteStorage {
                 password_hash TEXT,
                 expiry INTEGER NOT NULL,
                 uses INTEGER NOT NULL,
-                created_system INTEGER NOT NULL,
+                created_at INTEGER NOT NULL,
                 created_utc INTEGER NOT NULL
             );
 
@@ -217,7 +217,7 @@ impl EventStore for SqliteStorage {
             let content = serde_json::to_string(&event.content)
                 .map_err(|e| CalError::InvalidInput(e.to_string()))?;
 
-            let created_system = event.created_system
+            let created_at = event.created_at
                 .duration_since(UNIX_EPOCH)
                 .map_err(|_| CalError::InvalidInput("Invalid timestamp".into()))?
                 .as_secs() as i64;
@@ -231,7 +231,7 @@ impl EventStore for SqliteStorage {
             conn.execute(
                 r#"
                 INSERT INTO events
-                (id, content, password_hash, expiry, uses, created_system, created_utc)
+                (id, content, password_hash, expiry, uses, created_at, created_utc)
                 VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7)
                 "#,
                 params![
@@ -240,7 +240,7 @@ impl EventStore for SqliteStorage {
                     event.password_hash,
                     event.expiry as i64,
                     event.uses as i64,
-                    created_system,
+                    created_at,
                     created_utc
                 ],
             )?;
@@ -262,7 +262,7 @@ impl EventStore for SqliteStorage {
 
             conn.query_row(
                 r#"
-                SELECT id, content, password_hash, expiry, uses, created_system, created_utc
+                SELECT id, content, password_hash, expiry, uses, created_at, created_utc
                 FROM events WHERE id = ?1
                 "#,
                 [&id],
@@ -280,7 +280,7 @@ impl EventStore for SqliteStorage {
                         password_hash: row.get(2)?,
                         expiry: row.get::<_, i64>(3)? as u32,
                         uses: row.get::<_, i64>(4)? as u32,
-                        created_system: UNIX_EPOCH + std::time::Duration::from_secs(row.get::<_, i64>(5)? as u64),
+                        created_at: UNIX_EPOCH + std::time::Duration::from_secs(row.get::<_, i64>(5)? as u64),
                         created_utc,
                     })
                 },
@@ -300,7 +300,7 @@ impl EventStore for SqliteStorage {
             let tx = conn.transaction()?;
 
             let mut event: Event = tx.query_row(
-                "SELECT id, content, password_hash, expiry, uses, created_system, created_utc FROM events WHERE id = ?1",
+                "SELECT id, content, password_hash, expiry, uses, created_at, created_utc FROM events WHERE id = ?1",
                 [&id],
                 |row| {
                     let content: String = row.get(1)?;
@@ -316,7 +316,7 @@ impl EventStore for SqliteStorage {
                         password_hash: row.get(2)?,
                         expiry: row.get::<_, i64>(3)? as u32,
                         uses: row.get::<_, i64>(4)? as u32,
-                        created_system: UNIX_EPOCH + std::time::Duration::from_secs(row.get::<_, i64>(5)? as u64),
+                        created_at: UNIX_EPOCH + std::time::Duration::from_secs(row.get::<_, i64>(5)? as u64),
                         created_utc,
                     })
                 },
@@ -349,7 +349,7 @@ impl EventStore for SqliteStorage {
                 .map(|d| d.as_secs() as i64)
                 .map_err(|e| Box::new(e) as Box<dyn std::error::Error + Send>)?;
         
-            conn.execute("DELETE FROM events WHERE (created_system + expiry * 3600) < ?1", params![now])
+            conn.execute("DELETE FROM events WHERE (created_at + expiry * 3600) < ?1", params![now])
                 .map_err(|e| Box::new(e) as Box<dyn std::error::Error + Send>)?;
         
             Ok::<(), Box<dyn std::error::Error + Send>>(())
