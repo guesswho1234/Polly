@@ -119,12 +119,6 @@ pub async fn rate_limit(
     let ip_raw = extract_real_ip(req.headers(), addr);
     let ip = normalize_ip(&ip_raw);
 
-    tracing::info!(
-        "peer_addr = {}, extracted_ip = {}",
-        addr.ip(),
-        ip
-    );
-
     // ---- ENFORCE EXISTING BANS ----
     if state.check_ban(&ip).await.unwrap_or(false) {
         return (
