@@ -8,7 +8,7 @@ use std::{
 use axum::{
     body::Body,
     extract::{ConnectInfo, State},
-    http::{Request, StatusCode},
+    http::{Request, StatusCode, HeaderMap},
     middleware::Next,
     response::IntoResponse,
 };
@@ -58,6 +58,33 @@ pub type SharedGlobalRateLimiter = Arc<Mutex<GlobalRateLimiter>>;
 pub type SharedIPRateLimiter = Arc<Mutex<IPRateLimiter>>;
 
 /*
+ * --- Helper functions ---
+ */
+
+fn extract_real_ip(headers: &HeaderMap, addr: SocketAddr) -> String {
+    let peer = addr.ip().to_string();
+
+    // If request comes from Docker bridge (172.x.x.x), trust proxy headers instead
+    if peer.starts_with("172.") {
+        if let Some(forwarded) = headers.get("x-forwarded-for") {
+            if let Ok(s) = forwarded.to_str() {
+                if let Some(ip) = s.split(',').next() {
+                    return ip.trim().to_string();
+                }
+            }
+        }
+
+        if let Some(real) = headers.get("x-real-ip") {
+            if let Ok(ip) = real.to_str() {
+                return ip.to_string();
+            }
+        }
+    }
+
+    peer
+}
+
+/*
  * --- Middleware ---
  */
 
@@ -68,7 +95,13 @@ pub async fn rate_limit(
     next: Next,
 ) -> impl IntoResponse {
     let now = Instant::now();
-    let ip = addr.ip().to_string();
+    let ip = extract_real_ip(req.headers(), addr);
+
+    tracing::info!(
+        "peer_addr = {}, extracted_ip = {}",
+        addr.ip(),
+        ip
+    );
 
     // ---- ENFORCE EXISTING BANS ----
     if state.check_ban(&ip).await.unwrap_or(false) {
