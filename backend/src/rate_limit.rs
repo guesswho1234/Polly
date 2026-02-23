@@ -1,7 +1,7 @@
 use std::{
     collections::HashMap,
     sync::Arc,
-    net::SocketAddr,
+    net::{SocketAddr, IpAddr},
     time::{Duration, Instant},
 };
 
@@ -84,6 +84,27 @@ fn extract_real_ip(headers: &HeaderMap, addr: SocketAddr) -> String {
     peer
 }
 
+
+fn normalize_ip(ip: &str) -> String {
+    if let Ok(addr) = ip.parse::<IpAddr>() {
+        match addr {
+            IpAddr::V4(v4) => v4.to_string(),
+            IpAddr::V6(v6) => {
+                let segments = v6.segments();
+                format!(
+                    "{:x}:{:x}:{:x}:{:x}::",
+                    segments[0],
+                    segments[1],
+                    segments[2],
+                    segments[3],
+                )
+            }
+        }
+    } else {
+        ip.to_string()
+    }
+}
+
 /*
  * --- Middleware ---
  */
@@ -95,7 +116,8 @@ pub async fn rate_limit(
     next: Next,
 ) -> impl IntoResponse {
     let now = Instant::now();
-    let ip = extract_real_ip(req.headers(), addr);
+    let ip_raw = extract_real_ip(req.headers(), addr);
+    let ip = normalize_ip(&raw_ip);
 
     tracing::info!(
         "peer_addr = {}, extracted_ip = {}",
