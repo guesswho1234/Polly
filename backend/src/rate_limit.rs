@@ -117,7 +117,7 @@ pub async fn rate_limit(
 ) -> impl IntoResponse {
     let now = Instant::now();
     let ip_raw = extract_real_ip(req.headers(), addr);
-    let ip = normalize_ip(&raw_ip);
+    let ip = normalize_ip(&ip_raw);
 
     tracing::info!(
         "peer_addr = {}, extracted_ip = {}",
